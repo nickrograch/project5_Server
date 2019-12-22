@@ -65,14 +65,13 @@ public class UserlistRestControllerV1 {
             updateUser.setEmail(appUser.getEmail());
             updateUser.setPassword(appUser.getPassword());
         }
+
         Role userRole = roleRepository.findByName("USER");
         Role adminRole = roleRepository.findByName("ADMIN");
-        if (role.contains("USER") && role.contains("ADMIN")) {
+
+        if (role.contains("USER")) {
             updateUser.getRoles().add(userRole);
-            updateUser.getRoles().add(adminRole);
-        } else if (role.contains("USER")) {
-            updateUser.getRoles().add(userRole);
-        } else if (role.contains("ADMIN")) {
+        } else {
             updateUser.getRoles().add(adminRole);
         }
         userService.editUser(updateUser);
